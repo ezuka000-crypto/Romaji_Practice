@@ -1,7 +1,10 @@
 import '../style.css';
 import { Game } from './Game.js';
 
-document.querySelector('#app').innerHTML = `
+console.log('Main script started');
+
+try {
+  document.querySelector('#app').innerHTML = `
   <div id="settings-screen" class="screen">
     <h1>ローマ字練習</h1>
     
@@ -39,53 +42,57 @@ document.querySelector('#app').innerHTML = `
   </div>
 `;
 
-// Elements
-const settingsScreen = document.getElementById('settings-screen');
-const gameScreen = document.getElementById('game-screen');
-const resultScreen = document.getElementById('result-screen');
-const countSlider = document.getElementById('count-slider');
-const countVal = document.getElementById('count-val');
-const startBtn = document.getElementById('start-btn');
-const exitBtn = document.getElementById('exit-btn');
-const replayBtn = document.getElementById('replay-btn');
-const canvas = document.getElementById('game-canvas');
-const questionEl = document.getElementById('question-area');
+  // Elements
+  const settingsScreen = document.getElementById('settings-screen');
+  const gameScreen = document.getElementById('game-screen');
+  const resultScreen = document.getElementById('result-screen');
+  const countSlider = document.getElementById('count-slider');
+  const countVal = document.getElementById('count-val');
+  const startBtn = document.getElementById('start-btn');
+  const exitBtn = document.getElementById('exit-btn');
+  const replayBtn = document.getElementById('replay-btn');
+  const canvas = document.getElementById('game-canvas');
+  const questionEl = document.getElementById('question-area');
 
-// Update slider value display
-countSlider.addEventListener('input', (e) => {
-  countVal.textContent = e.target.value;
-});
+  // Update slider value display
+  countSlider.addEventListener('input', (e) => {
+    countVal.textContent = e.target.value;
+  });
 
-// Game Instance
-const game = new Game(canvas, questionEl);
+  // Game Instance
+  const game = new Game(canvas, questionEl);
 
-// Start Game
-startBtn.addEventListener('click', () => {
-  const count = parseInt(countSlider.value);
-  const size = document.querySelector('input[name="size"]:checked').value;
+  // Start Game
+  startBtn.addEventListener('click', () => {
+    const count = parseInt(countSlider.value);
+    const size = document.querySelector('input[name="size"]:checked').value;
 
-  settingsScreen.classList.add('hidden');
-  gameScreen.classList.remove('hidden');
+    settingsScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
 
-  game.init({ count, size });
-});
+    game.init({ count, size });
+  });
 
-// Exit Game
-exitBtn.addEventListener('click', () => {
-  game.stop();
-  gameScreen.classList.add('hidden');
-  settingsScreen.classList.remove('hidden');
-});
+  // Exit Game
+  exitBtn.addEventListener('click', () => {
+    game.stop();
+    gameScreen.classList.add('hidden');
+    settingsScreen.classList.remove('hidden');
+  });
 
-// Replay
-replayBtn.addEventListener('click', () => {
-  resultScreen.classList.add('hidden');
-  settingsScreen.classList.remove('hidden');
-});
+  // Replay
+  replayBtn.addEventListener('click', () => {
+    resultScreen.classList.add('hidden');
+    settingsScreen.classList.remove('hidden');
+  });
 
-// Game Win Event
-window.addEventListener('game-win', () => {
-  setTimeout(() => {
-    resultScreen.classList.remove('hidden');
-  }, 1000);
-});
+  // Game Win Event
+  window.addEventListener('game-win', () => {
+    setTimeout(() => {
+      resultScreen.classList.remove('hidden');
+    }, 1000);
+  });
+} catch (e) {
+  console.error('Initialization error:', e);
+  alert('Error: ' + e.message);
+}
