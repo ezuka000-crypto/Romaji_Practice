@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-    base: '/Romaji_Practice/', // リポジトリ名を設定
+    base: './', // リポジトリ名に関わらず動作するように相対パスに変更
 });
